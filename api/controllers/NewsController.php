@@ -51,6 +51,16 @@ class NewsController extends BaseController
         'views',
     ];
 
+    public function onConstruct(): void
+    {
+        $this->model = new News();
+        $this->additionalSearchFields = [
+            ['author_id', ':', $this->userData->getId()],
+            ['is_deleted', ':', '0'],
+        ];
+        $this->dto = NewsDto::class;
+        $this->dtoMapper = new NewsMapper();
+    }
 
     /**
      * Given a array request from a method DTO transformed to whats is needed to
@@ -82,56 +92,9 @@ class NewsController extends BaseController
         $this->model->saveOrFail($request, $this->createFields);
 
         if (isset($postData['categories'])) {
-            $this->relateCategories($this->model->getId(), $postData['categories']);
+            News::relateCategories($this->model->getId(), $postData['categories']);
         }
 
         return $this->model;
-    }
-
-    /**
-     * Creates the relationship between news and categories
-     *
-     * @return void
-     * 
-     * @param int $id
-     * @param array $categories
-     *
-     */
-
-    private function relateCategories(int $id, array $categories): void
-    {
-        foreach ($categories as $key => $value) {
-            $newsCategories = new NewsCategories();
-            $newsCategories->news_id = $id;
-            $newsCategories->categorie_id = $value;
-            $newsCategories->save();
-        }
-    }
-
-    /**
-     * Get the record by its primary key.
-     *
-     * @param mixed $id
-     *
-     * @throws Exception
-     *
-     * @return Response
-     */
-
-    public function getById($id): Response
-    {
-        $record = $this->getRecordById($id);
-        return $this->response($this->processOutput($record));
-    }
-
-    public function onConstruct(): void
-    {
-        $this->model = new News();
-        $this->additionalSearchFields = [
-            ['author_id', ':', $this->userData->getId()],
-            ['is_deleted', ':', '0'],
-        ];
-        $this->dto = NewsDto::class;
-        $this->dtoMapper = new NewsMapper();
     }
 }

@@ -47,4 +47,24 @@ class News extends BaseModel
             ]
         );
     }
+
+    /**
+     * Creates the relationship between news and categories
+     *
+     * @return void
+     * 
+     * @param int $id
+     * @param array $categories
+     *
+     */
+
+    public static function relateCategories(int $id, array $categories): void
+    {
+        foreach ($categories as $key => $value) {
+            $newsCategories = new NewsCategories();
+            $newsCategories->news_id = $id;
+            $newsCategories->categorie_id = $value;
+            $newsCategories->save();
+        }
+    }
 }
