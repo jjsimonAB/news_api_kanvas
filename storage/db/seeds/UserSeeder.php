@@ -20,19 +20,24 @@ class UserSeeder extends AbstractSeed
         $faker = Factory::create();
         $random = new Random();
 
-        $data =             [
+        $data = [
+            'user_activation_email' => $random->uuid(),
+            'email' => "test_user@test.com",
+            'password' => password_hash('bakatest123567', PASSWORD_DEFAULT),
             'firstname' => $faker->firstName,
             'lastname' => $faker->lastName,
-            'email' => "test_user@test.com",
-            'apps_id' => 1,
-            'leads_owner_id' => 1,
-            'companies_id' => 1,
-            'companies_branch_id' => 1,
-            'users_id' => 1,
-            'is_active' => 1,
-            'system_modules_id' => 1,
-            'created_at' => date('Y-m-d H:m:s'),
-            'is_deleted' => 0,
+            'default_company' => 1,
+            'displayname' => $faker->userName,
+            'system_modules_id' => 2,
+            'user_last_login_try' => 0,
+            'created_at' => date('Y-m-d H:i:s'),
+            'registered' => date('Y-m-d H:i:s'),
+            'lastvisit' => date('Y-m-d H:i:s'),
+            'user_active' => 1,
+            'dob' => date('Y-m-d'),
+            'sex' => 'M',
+            'user_login_tries' => 0,
+            'is_deleted' => 0
         ];
 
         $table = $this->table('users');
