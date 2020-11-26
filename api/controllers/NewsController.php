@@ -93,7 +93,6 @@ class NewsController extends BaseController
 
         if (isset($postData['categories'])) {
             News::relateCategories($this->model, $postData['categories']);
-            News::relateCategories($this->model, $postData['categories']);
         }
 
         return $this->model;
