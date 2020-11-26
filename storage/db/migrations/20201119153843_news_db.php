@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
@@ -18,6 +19,7 @@ final class NewsDb extends AbstractMigration
      */
     public function change(): void
     {
+        $users_table = $this->table('users');
         $news_table = $this->table('news');
         $categories_table = $this->table('categories');
         $news_categories = $this->table('news_categories');
