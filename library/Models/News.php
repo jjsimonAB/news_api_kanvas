@@ -58,11 +58,11 @@ class News extends BaseModel
      *
      */
 
-    public static function relateCategories(int $id, array $categories): void
+    public static function relateCategories(object $newsModel, array $categories): void
     {
         foreach ($categories as $key => $value) {
             $newsCategories = new NewsCategories();
-            $newsCategories->news_id = $id;
+            $newsCategories->news_id = $newsModel->getId();
             $newsCategories->categorie_id = $value;
             $newsCategories->save();
         }

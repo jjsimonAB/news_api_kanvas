@@ -92,7 +92,8 @@ class NewsController extends BaseController
         $this->model->saveOrFail($request, $this->createFields);
 
         if (isset($postData['categories'])) {
-            News::relateCategories($this->model->getId(), $postData['categories']);
+            News::relateCategories($this->model, $postData['categories']);
+            News::relateCategories($this->model, $postData['categories']);
         }
 
         return $this->model;
