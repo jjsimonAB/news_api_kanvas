@@ -27,6 +27,7 @@ class UserSeeder extends AbstractSeed
             'firstname' => $faker->firstName,
             'lastname' => $faker->lastName,
             'default_company' => 1,
+            'default_company_branch' => 1,
             'displayname' => $faker->userName,
             'system_modules_id' => 2,
             'user_last_login_try' => 0,
